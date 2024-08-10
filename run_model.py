@@ -41,8 +41,8 @@ i = 0
 for mask in masks:
     i += 1
     color_mask = np.zeros_like(image)
-    color_mask[mask > 0.5] = [30, 144, 255]
-    masked_image = cv2.addWeighted(image, 0.6, color_mask, 0.4, 0)
+    color_mask[mask > 0.5] = [255, 255, 255]
+    masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
     cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
 
 end = time.time()
