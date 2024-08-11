@@ -46,21 +46,21 @@ print(f"set_image time: {end - start}")
 #box_3 = np.array([1308, 648, 56.735, 65.038])
 #box_4 = np.array([1476, 1091, 75.416, 70.573])
 #box_5 = np.array([1735, 1262, 92.022, 99.632])
-box_1 = np.array([600, 1500, 1050, 1750])
-box_2 = np.array([1400, 3900, 1550, 4050])
-box_3 = np.array([1600, 3900, 2050, 4050])
-box_4 = np.array([1550, 3700, 1650, 3800])
-box_5 = np.array([1850, 3200, 2150, 3700])
-
+box_1 = np.array([630, 1470, 1050, 1750])
+box_2 = np.array([1390, 3900, 1550, 4050])
+box_3 = np.array([1600, 3850, 2020, 4050])
+box_4 = np.array([1520, 3550, 1650, 3750])
+box_5 = np.array([1850, 3200, 2150, 3670])
+boxes = [box_1, box_2, box_3, box_4, box_5]
 
 
 #input_boxes = torch.tensor([box_1, box_2, box_3], device=predictor.device)
-input_boxes = torch.tensor(
-    [box_1, box_2, box_3, box_4, box_5],
-    device=predictor.device
-)
+#input_boxes = torch.tensor(
+#    [box_1, box_2, box_3, box_4, box_5],
+#    device=predictor.device
+#)
 
-transformed_boxes = predictor.transform.apply_boxes_torch(input_boxes, image.shape[:2])  
+#transformed_boxes = predictor.transform.apply_boxes_torch(input_boxes, image.shape[:2])  
 #masks, _, _ = predictor.predict_torch(
 #    point_coords=None,
 #    point_labels=None,
@@ -68,15 +68,16 @@ transformed_boxes = predictor.transform.apply_boxes_torch(input_boxes, image.sha
 #    multimask_output=True
 #)
 
+total_masks = []
+for box in boxes:
+    masks, _, _ = predictor.predict(
+        point_coords=None,
+        point_labels=None,
+        box=box,
+        multimask_output=False
+    )
+    total_masks.append(masks[0])
 
-
-masks, _, _ = predictor.predict(
-    point_coords=None,
-    point_labels=None,
-    box=box_1,
-    multimask_output=True
-)
-#
 plt.figure(figsize=(10,10))
 plt.imshow(image)
 show_box(box_1, plt.gca())
@@ -92,7 +93,7 @@ plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_5.png')
 plt.axis('on')
 
 i = 0
-for mask in masks:
+for mask in total_masks:
     i += 1
     #color_mask = np.zeros_like(image)
     #color_mask[mask > 0.5] = [255, 255, 255]
