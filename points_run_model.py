@@ -14,7 +14,7 @@ def show_mask(mask, ax, random_color=False):
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
     ax.imshow(mask_image)
     
-def show_points(coords, labels, ax, marker_size=375):
+def show_points(coords, labels, ax, marker_size=100):
     pos_points = coords[labels==1]
     neg_points = coords[labels==0]
     ax.scatter(pos_points[:, 0], pos_points[:, 1], color='green', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)
@@ -32,6 +32,14 @@ image = cv2.imread("/home/Student/s4842338/segment-anything/images/DJI_202308231
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
+input_point = np.array([
+    [850, 1650],
+    [1450, 3980],
+    [1800, 3950],
+    [1590, 3650],
+    [2000, 3450]
+])
+input_label = np.array([1, 1, 1, 1, 1])
 
 start = time.time()
 predictor = SamPredictor(sam)
@@ -40,67 +48,28 @@ print(f"instantiate predictor time: {end - start}")
 predictor.set_image(image)
 end = time.time()
 print(f"set_image time: {end - start}")
-#
-#box_1 = np.array([1185, 463, 71.957, 71.265])
-#box_2 = np.array([1235, 569, 78.876, 85.795])
-#box_3 = np.array([1308, 648, 56.735, 65.038])
-#box_4 = np.array([1476, 1091, 75.416, 70.573])
-#box_5 = np.array([1735, 1262, 92.022, 99.632])
 
-box_1 = np.array([630, 1470, 1050, 1750])
-box_2 = np.array([1390, 3900, 1550, 4050])
-box_3 = np.array([1600, 3850, 2020, 4050])
-box_4 = np.array([1520, 3550, 1650, 3750])
-box_5 = np.array([1850, 3200, 2150, 3670])
-boxes = [box_1, box_2, box_3, box_4, box_5]
-
-
-#input_boxes = torch.tensor([box_1, box_2, box_3], device=predictor.device)
-#input_boxes = torch.tensor(
-#    [box_1, box_2, box_3, box_4, box_5],
-#    device=predictor.device
-#)
-
-#transformed_boxes = predictor.transform.apply_boxes_torch(input_boxes, image.shape[:2])  
-#masks, _, _ = predictor.predict_torch(
-#    point_coords=None,
-#    point_labels=None,
-#    boxes=transformed_boxes,
-#    multimask_output=True
-#)
-
-total_masks = []
-for box in boxes:
-    masks, _, _ = predictor.predict(
-        point_coords=None,
-        point_labels=None,
-        box=box,
-        multimask_output=False
-    )
-    total_masks.append(masks[0])
+masks, _, _ = predictor.predict(
+    point_coords=input_point,
+    point_labels=input_label,
+    box=None,
+    multimask_output=True
+)
 
 plt.figure(figsize=(10,10))
 plt.imshow(image)
-show_box(box_1, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_1.png')
-show_box(box_2, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_2.png')
-show_box(box_3, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_3.png')
-show_box(box_4, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_4.png')
-show_box(box_5, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_box_5.png')
+show_points(input_point, input_label, plt.gca())
+plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_points.png')
 plt.axis('on')
 
 i = 0
-for mask in total_masks:
+for mask in masks:
     i += 1
     #color_mask = np.zeros_like(image)
     #color_mask[mask > 0.5] = [255, 255, 255]
     #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
     show_mask(mask, plt.gca())
-    plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_masked_image_{i}.png')
+    plt.savefig(f'/home/Student/s4842338/segment-anything/images/plt_points_masked_image_{i}.png')
     #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
 
 end = time.time()
