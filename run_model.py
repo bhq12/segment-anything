@@ -41,14 +41,18 @@ predictor.set_image(image)
 end = time.time()
 print(f"set_image time: {end - start}")
 #
-#box_1 = np.array([573, 966, 73.741, 85.576])
-#box_2 = np.array([601, 778, 60.996, 101.053])
-#box_3 = np.array([512, 789, 39.147, 40.967])
-box_1 = np.array([1185, 463, 71.957, 71.265])
-box_2 = np.array([1235, 569, 78.876, 85.795])
-box_3 = np.array([1308, 648, 56.735, 65.038])
-box_4 = np.array([1476, 1091, 75.416, 70.573])
-box_5 = np.array([1735, 1262, 92.022, 99.632])
+#box_1 = np.array([1185, 463, 71.957, 71.265])
+#box_2 = np.array([1235, 569, 78.876, 85.795])
+#box_3 = np.array([1308, 648, 56.735, 65.038])
+#box_4 = np.array([1476, 1091, 75.416, 70.573])
+#box_5 = np.array([1735, 1262, 92.022, 99.632])
+box_1 = np.array([600, 1500, 1050, 1750])
+box_2 = np.array([1400, 3900, 1550, 4050])
+box_3 = np.array([1600, 3900, 2050, 4050])
+box_4 = np.array([1550, 3700, 1650, 3800])
+box_5 = np.array([1850, 3200, 2150, 3700])
+
+
 
 #input_boxes = torch.tensor([box_1, box_2, box_3], device=predictor.device)
 input_boxes = torch.tensor(
@@ -57,21 +61,21 @@ input_boxes = torch.tensor(
 )
 
 transformed_boxes = predictor.transform.apply_boxes_torch(input_boxes, image.shape[:2])  
-masks, _, _ = predictor.predict_torch(
-    point_coords=None,
-    point_labels=None,
-    boxes=transformed_boxes,
-    multimask_output=True
-)
-
-
-
-#masks, _, _ = predictor.predict(
+#masks, _, _ = predictor.predict_torch(
 #    point_coords=None,
 #    point_labels=None,
-#    box=box_1,
+#    boxes=transformed_boxes,
 #    multimask_output=True
 #)
+
+
+
+masks, _, _ = predictor.predict(
+    point_coords=None,
+    point_labels=None,
+    box=box_1,
+    multimask_output=True
+)
 #
 plt.figure(figsize=(10,10))
 plt.imshow(image)
