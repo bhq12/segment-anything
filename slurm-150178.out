@@ -3,10 +3,8 @@ Python 3.10.14
 pip 24.0 from /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/pip (python 3.10)
 /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZNK3c107SymBool10guard_boolEPKcl'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
   warn(
-/home/Student/s4842338/segment-anything/run_model.py:58: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  /croot/pytorch_1675190298929/work/torch/csrc/utils/tensor_new.cpp:201.)
-  input_boxes = torch.tensor(
-instantiate predictor time: 5.030632019042969e-05
-set_image time: 97.08792018890381
-masks time: 152.1802098751068
+instantiate predictor time: 4.76837158203125e-05
+set_image time: 98.28099966049194
+masks time: 113.04834842681885
 DONE!
-time: 152.1802179813385
+time: 113.04835629463196

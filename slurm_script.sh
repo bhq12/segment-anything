@@ -21,4 +21,4 @@ conda activate segment_anything_1
 #python run_sam.py
 python --version
 pip --version
-python run_model.py
+python points_run_model.py
