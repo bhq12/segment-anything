@@ -28,7 +28,7 @@ def show_box(box, ax):
 
 sam = sam_model_registry["default"](checkpoint="./sam_vit_h_4b8939.pth")
 
-image = cv2.imread("/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_034_R7North.jpg")
+image = cv2.imread("/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_Priority1b&c_100MEDIA.jpg")
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
@@ -59,7 +59,7 @@ masks, _, _ = predictor.predict(
 plt.figure(figsize=(10,10))
 plt.imshow(image)
 show_points(input_point, input_label, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/segment_plt_points.png')
+plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points.png')
 plt.axis('on')
 
 i = 0
@@ -69,7 +69,7 @@ for mask in masks:
     #color_mask[mask > 0.5] = [255, 255, 255]
     #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
     show_mask(mask, plt.gca())
-    plt.savefig(f'/home/Student/s4842338/segment-anything/images/segment_plt_points_masked_image_{i}.png')
+    plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points_masked_image_{i}.png')
     #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
 
 end = time.time()
