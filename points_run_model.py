@@ -5,12 +5,23 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 
+
+def remove_black_background(image):
+    # Make a True/False mask of pixels whose BGR values sum to more than zero
+    alpha = np.sum(image, axis=-1) > 0
+
+    # Convert True/False to 0/255 and change type to "uint8" to match "na"
+    alpha = np.uint8(alpha * 255)
+
+    # Stack new alpha layer with existing image to go from BGR to BGRA, i.e. 3 channels to 4 channels
+    return np.dstack((na, alpha)) 
+
 def show_mask(mask, ax, random_color=False):
     if random_color:
         color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
     else:
         #color = np.array([30/255, 144/255, 255/255, 0.6])
-        color = np.array([0, 0, 0, 1])
+        color = np.array([0, 0, 0, 0])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
     ax.imshow(mask_image)
