@@ -9,7 +9,8 @@ def show_mask(mask, ax, random_color=False):
     if random_color:
         color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
     else:
-        color = np.array([30/255, 144/255, 255/255, 0.6])
+        #color = np.array([30/255, 144/255, 255/255, 0.6])
+        color = np.array([0, 0, 0, 1])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
     ax.imshow(mask_image)
@@ -25,55 +26,65 @@ def show_box(box, ax):
     w, h = box[2] - box[0], box[3] - box[1]
     ax.add_patch(plt.Rectangle((x0, y0), w, h, edgecolor='green', facecolor=(0,0,0,0), lw=2))
 
+def generate_masked_image(image_location, output_prefix):
+    sam = sam_model_registry["default"](checkpoint="./sam_vit_h_4b8939.pth")
 
-sam = sam_model_registry["default"](checkpoint="./sam_vit_h_4b8939.pth")
-
-image = cv2.imread("/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_Priority1b&c_100MEDIA.jpg")
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.imread(image_location)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
-input_point = np.array([
-    [850, 1650],
-    [1450, 3980],
-    [1800, 3950],
-    [1590, 3650],
-    [2000, 3450]
-])
-input_label = np.array([1, 1, 1, 1, 1])
+    input_point = np.array([
+        [850, 1650],
+        [1450, 3980],
+        [1800, 3950],
+        [1590, 3650],
+        [2000, 3450]
+    ])
+    input_label = np.array([1, 1, 1, 1, 1])
 
-start = time.time()
-predictor = SamPredictor(sam)
-end = time.time()
-print(f"instantiate predictor time: {end - start}")
-predictor.set_image(image)
-end = time.time()
-print(f"set_image time: {end - start}")
+    start = time.time()
+    predictor = SamPredictor(sam)
+    end = time.time()
+    print(f"instantiate predictor time: {end - start}")
+    predictor.set_image(image)
+    end = time.time()
+    print(f"set_image time: {end - start}")
 
-masks, _, _ = predictor.predict(
-    point_coords=input_point,
-    point_labels=input_label,
-    box=None,
-    multimask_output=True
-)
+    masks, _, _ = predictor.predict(
+        point_coords=input_point,
+        point_labels=input_label,
+        box=None,
+        multimask_output=True
+    )
 
-plt.figure(figsize=(10,10))
-plt.imshow(image)
-show_points(input_point, input_label, plt.gca())
-plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points.png')
-plt.axis('on')
+    plt.figure(figsize=(10,10))
+    plt.imshow(image)
+    show_points(input_point, input_label, plt.gca())
+    plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points.png')
+    plt.axis('on')
 
-i = 0
-for mask in masks:
-    i += 1
-    #color_mask = np.zeros_like(image)
-    #color_mask[mask > 0.5] = [255, 255, 255]
-    #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
-    show_mask(mask, plt.gca())
-    plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points_masked_image_{i}.png')
-    #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
+    i = 0
+    for mask in masks:
+        i += 1
+        #color_mask = np.zeros_like(image)
+        #color_mask[mask > 0.5] = [255, 255, 255]
+        #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
+        show_mask(mask, plt.gca())
+        plt.savefig(f'/home/Student/s4842338/segment-anything/images/{output_prefix}_segment_plt_points_masked_image_{i}.png')
+        #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
 
-end = time.time()
-print(f"masks time: {end - start}")
-end = time.time()
-print("DONE!")
-print(f"time: {end - start}")
+    end = time.time()
+    print(f"masks time: {end - start}")
+    end = time.time()
+    print("DONE!")
+    print(f"time: {end - start}")
+
+
+if __name__ == '__main__':
+    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_Priority1b&c_100MEDIA.jpg"
+    output_prefix = 'priority_1b_c'
+    generate_masked_image(image_location, output_prefix)
+
+    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_034_R7North.jpg"
+    output_prefix = 'priority_r7_north'
+    generate_masked_image(image_location, output_prefix)
