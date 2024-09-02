@@ -98,10 +98,10 @@ def generate_masked_image(image_location, output_prefix):
 
 
 if __name__ == '__main__':
-    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_95_Priority1b&c_100MEDIA.jpg"
-    output_prefix = 'segment_95_priority_1b_c'
+    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_75_Priority1b&c_100MEDIA.jpg"
+    output_prefix = 'segment_75_priority_1b_c'
     generate_masked_image(image_location, output_prefix)
 
-    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_95_034_R7North.jpg"
-    output_prefix = 'segment_95_priority_r7_north'
+    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_75_034_R7North.jpg"
+    output_prefix = 'segment_75_priority_r7_north'
     generate_masked_image(image_location, output_prefix)
