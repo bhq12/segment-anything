@@ -20,7 +20,7 @@ def show_mask(mask, ax, random_color=False):
     if random_color:
         color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
     else:
-        color = np.array([0, 0, 0, 0.6])
+        color = np.array([0, 0, 0, 0.9])
         #color = np.array([0, 0, 0, 0])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
@@ -93,9 +93,9 @@ def generate_masked_image(image_location, output_prefix):
 
 if __name__ == '__main__':
     image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_Priority1b&c_100MEDIA.jpg"
-    output_prefix = 'priority_1b_c'
+    output_prefix = 'priority_1b_c_09'
     generate_masked_image(image_location, output_prefix)
 
     image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_034_R7North.jpg"
-    output_prefix = 'priority_r7_north'
+    output_prefix = 'priority_r7_north_09'
     generate_masked_image(image_location, output_prefix)
