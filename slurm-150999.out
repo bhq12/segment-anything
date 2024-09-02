@@ -1,0 +1,25 @@
+0b:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 40GB] (rev a1)
+Python 3.10.14
+pip 24.0 from /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/pip (python 3.10)
+/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZNK3c107SymBool10guard_boolEPKcl'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+instantiate predictor time: 4.363059997558594e-05
+set_image time: 97.26225590705872
+Traceback (most recent call last):
+  File "/home/Student/s4842338/segment-anything/points_run_model.py", line 103, in <module>
+    generate_masked_image(image_location, output_prefix)
+  File "/home/Student/s4842338/segment-anything/points_run_model.py", line 70, in generate_masked_image
+    masks, _, _ = predictor.predict(
+  File "/home/Student/s4842338/segment-anything/segment_anything/predictor.py", line 154, in predict
+    masks, iou_predictions, low_res_masks = self.predict_torch(
+  File "/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/Student/s4842338/segment-anything/segment_anything/predictor.py", line 222, in predict_torch
+    sparse_embeddings, dense_embeddings = self.model.prompt_encoder(
+  File "/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/Student/s4842338/segment-anything/segment_anything/modeling/prompt_encoder.py", line 155, in forward
+    point_embeddings = self._embed_points(coords, labels, pad=(boxes is None))
+  File "/home/Student/s4842338/segment-anything/segment_anything/modeling/prompt_encoder.py", line 87, in _embed_points
+    point_embedding[labels == -1] = 0.0
+IndexError: The shape of the mask [1, 6] at index 1 does not match the shape of the indexed tensor [1, 2, 256] at index 1

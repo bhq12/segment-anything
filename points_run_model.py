@@ -20,7 +20,7 @@ def show_mask(mask, ax, random_color=False):
     if random_color:
         color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
     else:
-        color = np.array([0, 0, 0, 0.9])
+        color = np.array([0, 0, 0, 0.999])
         #color = np.array([0, 0, 0, 0])
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
@@ -44,10 +44,16 @@ def generate_masked_image(image_location, output_prefix):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
+    #input_point = np.array([
+    #    [850, 1000],
+    #    #[500, 1000],
+    #    #[200, 1900]
+    #])
+
     input_point = np.array([
-        [850, 1650],
-        [1450, 3980],
-        [1800, 3950],
+        [850, 1000],
+        [500, 1000],
+        [200, 1900],
         [1590, 3650],
         [2000, 3450]
     ])
@@ -70,7 +76,7 @@ def generate_masked_image(image_location, output_prefix):
 
     plt.figure(figsize=(10,10))
     plt.imshow(image)
-    show_points(input_point, input_label, plt.gca())
+    #show_points(input_point, input_label, plt.gca())
     plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points.png')
     plt.axis('on')
 
@@ -93,9 +99,9 @@ def generate_masked_image(image_location, output_prefix):
 
 if __name__ == '__main__':
     image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_Priority1b&c_100MEDIA.jpg"
-    output_prefix = 'priority_1b_c_09'
+    output_prefix = 'priority_1b_c_1'
     generate_masked_image(image_location, output_prefix)
 
     image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_55_034_R7North.jpg"
-    output_prefix = 'priority_r7_north_09'
+    output_prefix = 'priority_r7_north_1'
     generate_masked_image(image_location, output_prefix)

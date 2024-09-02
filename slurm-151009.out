@@ -1,0 +1,15 @@
+0b:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 40GB] (rev a1)
+Python 3.10.14
+pip 24.0 from /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/pip (python 3.10)
+/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZNK3c107SymBool10guard_boolEPKcl'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+instantiate predictor time: 4.291534423828125e-05
+set_image time: 96.6896870136261
+masks time: 99.70745038986206
+DONE!
+time: 99.70745801925659
+instantiate predictor time: 4.410743713378906e-05
+set_image time: 96.8896312713623
+masks time: 110.8343939781189
+DONE!
+time: 110.83440113067627
