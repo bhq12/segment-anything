@@ -98,10 +98,11 @@ def generate_masked_image(image_location, output_prefix):
 
 
 if __name__ == '__main__':
-    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_75_Priority1b&c_100MEDIA.jpg"
-    output_prefix = 'segment_75_priority_1b_c'
-    generate_masked_image(image_location, output_prefix)
+    for i in range(3,101):
+        image_location = f"/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
+        output_prefix = f'segment_{i}_priority_1b_c'
+        generate_masked_image(image_location, output_prefix)
 
-    image_location = "/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_75_034_R7North.jpg"
-    output_prefix = 'segment_75_priority_r7_north'
-    generate_masked_image(image_location, output_prefix)
+        image_location = f"/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_034_R7North.jpg"
+        output_prefix = f'segment_{i}_priority_r7_north'
+        generate_masked_image(image_location, output_prefix)
