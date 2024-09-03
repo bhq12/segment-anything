@@ -98,7 +98,7 @@ def generate_masked_image(image_location, output_prefix):
 
 
 if __name__ == '__main__':
-    for i in range(10,101):
+    for i in range(12,101):
         image_location = f"/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
         output_prefix = f'segment_{i}_priority_1b_c'
         generate_masked_image(image_location, output_prefix)
