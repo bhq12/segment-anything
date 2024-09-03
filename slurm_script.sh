@@ -1,9 +1,9 @@
 #!/bin/bash
-time=0-06:00:00
-#SBATCH --nodes=2
+time=06:00:00
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:1
-#SBATCH --partition=gpu
+#SBATCH --partition=gpu_cuda
 #SBATCH --job-name="Brook Job"
 #SBATCH --mail-user=s4842338@student.uq.edu.au
 #SBATCH --mail-type=BEGIN

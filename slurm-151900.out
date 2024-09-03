@@ -3,4 +3,3 @@ Python 3.10.14
 pip 24.0 from /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/pip (python 3.10)
 /home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/Student/s4842338/.local/lib/miniconda3/envs/segment_anything_1/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZNK3c107SymBool10guard_boolEPKcl'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
   warn(
-slurmstepd: error: *** JOB 151846 ON a100-a CANCELLED AT 2024-09-03T14:15:20 DUE TO TIME LIMIT ***
