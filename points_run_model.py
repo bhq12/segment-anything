@@ -77,7 +77,7 @@ def generate_masked_image(image_location, output_prefix):
     plt.figure(figsize=(10,10))
     plt.imshow(image)
     #show_points(input_point, input_label, plt.gca())
-    plt.savefig(f'/home/Student/s4842338/segment-anything/images/priority_segment_plt_points.png')
+    plt.savefig(f'./images/priority_segment_plt_points.png')
     plt.axis('on')
 
     i = 0
@@ -87,7 +87,7 @@ def generate_masked_image(image_location, output_prefix):
         #color_mask[mask > 0.5] = [255, 255, 255]
         #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
         show_mask(mask, plt.gca())
-        plt.savefig(f'/home/Student/s4842338/segment-anything/images/{output_prefix}_segment_plt_points_masked_image.png')
+        plt.savefig(f'./images/{output_prefix}_segment_plt_points_masked_image.png')
         #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
 
     end = time.time()
@@ -98,11 +98,11 @@ def generate_masked_image(image_location, output_prefix):
 
 
 if __name__ == '__main__':
-    for i in range(54,101):
-        image_location = f"/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
+    for i in range(1,101):
+        image_location = f"./images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
         output_prefix = f'segment_{i}_priority_1b_c'
         generate_masked_image(image_location, output_prefix)
 
-        image_location = f"/home/Student/s4842338/segment-anything/images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_034_R7North.jpg"
+        image_location = f"./images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_034_R7North.jpg"
         output_prefix = f'segment_{i}_priority_r7_north'
         generate_masked_image(image_location, output_prefix)
