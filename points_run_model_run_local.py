@@ -30,9 +30,9 @@ def show_mask(mask, ax, random_color=False):
     
 def show_points(coords, labels, ax, marker_size=100):
     pos_points = coords[labels==1]
-    neg_points = coords[labels==0]
+    #neg_points = coords[labels==0]
     ax.scatter(pos_points[:, 0], pos_points[:, 1], color='green', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)
-    ax.scatter(neg_points[:, 0], neg_points[:, 1], color='red', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)   
+    #ax.scatter(neg_points[:, 0], neg_points[:, 1], color='red', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)   
     
 def show_box(box, ax):
     x0, y0 = box[0], box[1]
@@ -53,13 +53,20 @@ def generate_masked_image(image_location, output_prefix):
     #])
 
     input_point = np.array([
-        [850, 1000],
-        [500, 1000],
-        [200, 1900],
-        [1590, 3650],
-        [2000, 3450]
+        [4500, 1000],
+        [4000, 1000],
+        [2000, 2000],
+        [850, 2000],
+        [200, 250],
+        [5000, 3000],
+        [1000, 1000],
+        [250, 3500],
+        [70, 3200],
+        [50, 3300],
+        [50, 3250],
+        [10, 3350]
     ])
-    input_label = np.array([1, 1, 1, 1, 1])
+    input_label = np.array([1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0])
 
     start = time.time()
     predictor = SamPredictor(sam)
@@ -78,7 +85,7 @@ def generate_masked_image(image_location, output_prefix):
 
     plt.figure(figsize=(10,10))
     plt.imshow(image)
-    #show_points(input_point, input_label, plt.gca())
+    show_points(input_point, input_label, plt.gca())
     plt.savefig(f'./images/priority_segment_plt_points.png')
     plt.axis('on')
 
@@ -89,9 +96,9 @@ def generate_masked_image(image_location, output_prefix):
         #color_mask[mask > 0.5] = [255, 255, 255]
         #masked_image = cv2.addWeighted(image, 0.2, color_mask, 0.9, 0)
         show_mask(mask, plt.gca())
-        plt.savefig(f'./images/{output_prefix}_segment_plt_points_masked_image.png')
         #cv2.imwrite(f'/home/Student/s4842338/segment-anything/images/masked_image_{i}.png', cv2.cvtColor(masked_image, cv2.COLOR_RGB2BGR))
-
+    plt.savefig(f'./images/{output_prefix}_segment_plt_points_masked_image.png')
+    show_points(input_point, input_label, plt.gca())
     end = time.time()
     print(f"masks time: {end - start}")
     end = time.time()
@@ -101,12 +108,12 @@ def generate_masked_image(image_location, output_prefix):
 
 if __name__ == '__main__':
     start = int(sys.argv[1])
-    for i in range(start, start + 3):
+    for i in range(start, start + 1):
         gc.collect()
         print(f'I: {i}')
-        image_location = f"./images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
-        output_prefix = f'segment_{i}_priority_1b_c'
-        generate_masked_image(image_location, output_prefix)
+        #image_location = f"./images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_Priority1b&c_100MEDIA.jpg"
+        #output_prefix = f'segment_{i}_priority_1b_c'
+        #generate_masked_image(image_location, output_prefix)
 
         image_location = f"./images/Priority1b&c_100MEDIA_034_R7North/Segment_{i}_034_R7North.jpg"
         output_prefix = f'segment_{i}_priority_r7_north'
